@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Servidor de Minecraft - Guía Oficial</title>
+    <style>
+        :root {
+            --bg: #0f172a;
+            --card-bg: #1e293b;
+            --accent: #38bdf8;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --text: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            max-width: 800px;
+            width: 100%;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            background: linear-gradient(135deg, #1e1b4b, #312e81);
+            border-radius: 16px;
+            margin-bottom: 24px;
+            border: 1px solid #4338ca;
+        }
+
+        h1 { margin: 0; font-size: 2.2rem; color: #a5b4fc; }
+        p.subtitle { color: var(--text-muted); margin-top: 8px; font-size: 1.1rem; }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 20px;
+            border: 1px solid #334155;
+        }
+
+        h2 {
+            margin-top: 0;
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .danger-zone {
+            border-color: var(--danger);
+            background: rgba(239, 68, 68, 0.05);
+        }
+
+        .danger-zone h2 { color: var(--danger); }
+
+        ul { padding-left: 20px; line-height: 1.6; }
+        li { margin-bottom: 10px; }
+
+        .badge {
+            background: #334155;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+
+        .info-box {
+            background: rgba(56, 189, 248, 0.1);
+            border-left: 4px solid var(--accent);
+            padding: 12px 16px;
+            border-radius: 0 8px 8px 0;
+            margin-top: 15px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <header>
+        <h1>🎮 Servidor de Minecraft</h1>
+        <p class="subtitle">Guía de Mecánicas, Reglas y Convivencia</p>
+    </header>
+
+    <!-- SISTEMA DE VIDAS Y PENALIZACIONES -->
+    <div class="card danger-zone">
+        <h2>💀 Sistema de Vidas y Revivir</h2>
+        <ul>
+            <li><strong>10 Vidas por jugador:</strong> Inicias con 10 vidas visibles en tu pantalla y TAB.</li>
+            <li><strong>Baneo por muerte total:</strong> Si pierdes tu última vida, serás <strong>baneado del servidor</strong>.</li>
+            <li><strong>Ficha Dorada (Revivir):</strong> Tus amigos pueden comprar una Ficha Dorada en la tienda del juego para revivirte y traerte de vuelta al servidor.</li>
+        </ul>
+
+        <h2 style="margin-top: 20px;">⚠️ Misiones y Penalizaciones</h2>
+        <ul>
+            <li><strong>Misiones Diarias:</strong> Si no la completas antes de que termine el día, al volver a entrar recibirás un <span style="color: var(--warning);">efecto negativo</span> hasta que la termines.</li>
+            <li><strong>Misiones Semanales:</strong> Si no la completas en la semana, <span style="color: var(--danger);">¡perderás 1 vida automáticamente!</span></li>
+        </ul>
+    </div>
+
+    <!-- PACTOS DE CONVIVENCIA -->
+    <div class="card">
+        <h2>🕊️ Pactos de Convivencia (/pacto)</h2>
+        <p>Elige tu nivel de compromiso según tu estilo de juego:</p>
+        <ul>
+            <li><span class="badge">Nivel 0</span> <strong>Pacífico:</strong> Inmunidad total. Nadie te puede atacar, robar ni griffear.</li>
+            <li><span class="badge">Nivel 1</span> <strong>Casual:</strong> Bromas ligeras permitidas. Quien cause daños debe devolver los ítems/reparar.</li>
+            <li><span class="badge">Nivel 2</span> <strong>Competitivo:</strong> PvP moderado y pequeñas rivalidades.</li>
+            <li><span class="badge">Nivel 3</span> <strong>Anarquía:</strong> PvP total, griffeo y libre acción.</li>
+        </ul>
+    </div>
+
+    <!-- TIEMPO DE JUEGO -->
+    <div class="card">
+        <h2>⏳ Tiempo de Juego Diario</h2>
+        <ul>
+            <li><strong>Horarios:</strong> 180 min (3 hrs) en días normales y 300 min (5 hrs) los fines de semana.</li>
+            <li><strong>Bolsa de Horas:</strong> El tiempo que no uses entre semana se guarda para el fin de semana.</li>
+            <li><strong>Comando <code>/descanso</code>:</strong> Cambia tu día largo a otro día de la semana si lo necesitas.</li>
+        </ul>
+    </div>
+
+    <!-- OTRAS MECÁNICAS -->
+    <div class="card">
+        <h2>✨ Características Generales</h2>
+        <ul>
+            <li><strong>Gremios y Banco:</strong> Crea tu clan, abre un cofre compartido y guarda tu dinero en el banco.</li>
+            <li><strong>Casino 3D:</strong> Tragamonedas, ruleta, blackjack y apuestas de eventos.</li>
+            <li><strong>Cacerías de Jefes:</strong> Enfrenta jefes especiales con armas y mecánicas únicas.</li>
+            <li><strong>Muñeco de Guardia:</strong> Mantiene tus cultivos y mecanismos cargados mientras estás desconectado.</li>
+            <li><strong>Tickets de Imagen:</strong> Coloca cualquier imagen de internet en cuadros usando <code>/imagen &lt;link&gt;</code>.</li>
+        </ul>
+    </div>
+
+    <!-- INVITACIONES Y COOPERACIÓN -->
+    <div class="card">
+        <h2>👥 Invitaciones y Mantenimiento</h2>
+        <p><strong>¡Invita a tus amigos!</strong> Puedes traer a cualquier conocido que quiera jugar con nosotros.</p>
+        <div class="info-box">
+            💳 <strong>Sostenibilidad del Servidor:</strong> Se solicitará una pequeña cooperación entre todos los jugadores para cubrir el costo del host. Al ser varios, la aportación individual será muy accesible.
+        </div>
+    </div>
+
+    <footer>
+        <p>Servidor impulsado por <strong>Núcleo Mod</strong> • ¡Nos vemos dentro del juego!</p>
+    </footer>
+
+</div>
+
+</body>
+</html>
