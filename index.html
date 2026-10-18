@@ -3,92 +3,211 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Servidor de Minecraft - Guía Oficial</title>
+    <title>Núcleo SMP | Servidor de Minecraft</title>
     <style>
         :root {
-            --bg: #0f172a;
-            --card-bg: #1e293b;
+            --bg: #090d16;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --card-border: rgba(51, 65, 85, 0.5);
             --accent: #38bdf8;
-            --danger: #ef4444;
-            --warning: #f59e0b;
+            --accent-glow: rgba(56, 189, 248, 0.3);
+            --danger: #f43f5e;
+            --danger-glow: rgba(244, 63, 94, 0.3);
+            --warning: #fbbf24;
             --text: #f8fafc;
             --text-muted: #94a3b8;
+            --radius: 16px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
             background-color: var(--bg);
             color: var(--text);
-            margin: 0;
-            padding: 20px;
+            min-height: 100vh;
             display: flex;
             justify-content: center;
+            padding: 20px;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(56, 189, 248, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(244, 63, 94, 0.06) 0%, transparent 40%);
+            background-attachment: fixed;
         }
 
         .container {
-            max-width: 800px;
+            max-width: 750px;
             width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
         }
 
+        /* HEADER */
         header {
             text-align: center;
             padding: 40px 20px;
-            background: linear-gradient(135deg, #1e1b4b, #312e81);
-            border-radius: 16px;
-            margin-bottom: 24px;
-            border: 1px solid #4338ca;
+            background: linear-gradient(135deg, rgba(30, 27, 75, 0.8), rgba(15, 23, 42, 0.9));
+            border-radius: var(--radius);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            position: relative;
+            overflow: hidden;
         }
 
-        h1 { margin: 0; font-size: 2.2rem; color: #a5b4fc; }
-        p.subtitle { color: var(--text-muted); margin-top: 8px; font-size: 1.1rem; }
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; height: 3px;
+            background: linear-gradient(90deg, var(--accent), var(--danger));
+        }
 
+        .badge-tbd {
+            display: inline-block;
+            background: rgba(251, 191, 36, 0.15);
+            color: var(--warning);
+            border: 1px solid rgba(251, 191, 36, 0.4);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: #fff;
+            margin-bottom: 8px;
+            background: linear-gradient(to right, #fff, var(--text-muted));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        p.subtitle {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+
+        /* CARDS & ACCORDIONS */
         .card {
             background-color: var(--card-bg);
-            border-radius: 12px;
+            backdrop-filter: blur(12px);
+            border-radius: var(--radius);
+            border: 1px solid var(--card-border);
             padding: 24px;
-            margin-bottom: 20px;
-            border: 1px solid #334155;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            transition: transform 0.2s ease, border-color 0.2s ease;
+        }
+
+        .card:hover {
+            border-color: rgba(56, 189, 248, 0.4);
+        }
+
+        .danger-card {
+            border-color: rgba(244, 63, 94, 0.4);
+            background: linear-gradient(135deg, rgba(30, 27, 42, 0.8), rgba(20, 10, 15, 0.8));
         }
 
         h2 {
-            margin-top: 0;
+            font-size: 1.3rem;
             color: var(--accent);
             display: flex;
             align-items: center;
             gap: 10px;
+            margin-bottom: 14px;
         }
 
-        .danger-zone {
-            border-color: var(--danger);
-            background: rgba(239, 68, 68, 0.05);
+        .danger-card h2 {
+            color: var(--danger);
         }
 
-        .danger-zone h2 { color: var(--danger); }
+        /* ACCORDIONS (<details>) */
+        details {
+            margin-top: 12px;
+        }
 
-        ul { padding-left: 20px; line-height: 1.6; }
-        li { margin-bottom: 10px; }
+        summary {
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--text);
+            padding: 10px 14px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 8px;
+            transition: background 0.2s;
+            user-select: none;
+        }
 
-        .badge {
-            background: #334155;
+        summary:hover {
+            background: rgba(255, 255, 255, 0.07);
+        }
+
+        details[open] summary {
+            background: rgba(56, 189, 248, 0.08);
+            border-color: rgba(56, 189, 248, 0.2);
+            color: var(--accent);
+        }
+
+        .details-content {
+            padding: 14px 6px 4px 6px;
+        }
+
+        ul {
+            padding-left: 20px;
+            line-height: 1.7;
+        }
+
+        li {
+            margin-bottom: 8px;
+            color: var(--text-muted);
+        }
+
+        li strong {
+            color: var(--text);
+        }
+
+        /* BADGES */
+        .pact-badge {
+            display: inline-block;
             padding: 2px 8px;
-            border-radius: 4px;
+            border-radius: 6px;
+            font-size: 0.8rem;
             font-weight: bold;
-            font-size: 0.9em;
+            background: rgba(255,255,255,0.1);
+            color: #fff;
         }
 
         .info-box {
-            background: rgba(56, 189, 248, 0.1);
+            background: rgba(56, 189, 248, 0.06);
             border-left: 4px solid var(--accent);
-            padding: 12px 16px;
+            padding: 14px 18px;
             border-radius: 0 8px 8px 0;
-            margin-top: 15px;
+            margin-top: 12px;
+            font-size: 0.95rem;
+            line-height: 1.5;
         }
 
+        /* FOOTER */
         footer {
             text-align: center;
-            padding: 20px;
+            padding: 30px 20px;
             color: var(--text-muted);
             font-size: 0.9rem;
+            border-top: 1px solid var(--card-border);
+            margin-top: 10px;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 600px) {
+            body { padding: 10px; }
+            h1 { font-size: 2rem; }
+            .card { padding: 18px; }
         }
     </style>
 </head>
@@ -96,72 +215,91 @@
 
 <div class="container">
 
+    <!-- HEADER -->
     <header>
-        <h1>🎮 Servidor de Minecraft</h1>
-        <p class="subtitle">Guía de Mecánicas, Reglas y Convivencia</p>
+        <div class="badge-tbd">🟢 Apertura: TBD (Próximamente)</div>
+        <h1>Núcleo SMP</h1>
+        <p class="subtitle">Un servidor survival hardcore personalizado, limpio y diseñado para jugar en comunidad.</p>
     </header>
 
-    <!-- SISTEMA DE VIDAS Y PENALIZACIONES -->
-    <div class="card danger-zone">
-        <h2>💀 Sistema de Vidas y Revivir</h2>
+    <!-- ZONA DE PELIGRO: VIDAS Y MISIONES -->
+    <div class="card danger-card">
+        <h2>💀 Sistema de Vidas & Penalizaciones</h2>
         <ul>
-            <li><strong>10 Vidas por jugador:</strong> Inicias con 10 vidas visibles en tu pantalla y TAB.</li>
-            <li><strong>Baneo por muerte total:</strong> Si pierdes tu última vida, serás <strong>baneado del servidor</strong>.</li>
-            <li><strong>Ficha Dorada (Revivir):</strong> Tus amigos pueden comprar una Ficha Dorada en la tienda del juego para revivirte y traerte de vuelta al servidor.</li>
-        </ul>
-
-        <h2 style="margin-top: 20px;">⚠️ Misiones y Penalizaciones</h2>
-        <ul>
-            <li><strong>Misiones Diarias:</strong> Si no la completas antes de que termine el día, al volver a entrar recibirás un <span style="color: var(--warning);">efecto negativo</span> hasta que la termines.</li>
-            <li><strong>Misiones Semanales:</strong> Si no la completas en la semana, <span style="color: var(--danger);">¡perderás 1 vida automáticamente!</span></li>
+            <li><strong>10 Vidas Base:</strong> Tus corazones se muestran en el TAB y sobre tu cabeza. Si pierdes tu última vida, serás <strong>baneado automáticamente</strong>.</li>
+            <li><strong>Ficha Dorada (Revivir):</strong> ¿Te eliminaron? Tranquilo. Tus amigos pueden comprar una Ficha Dorada en la tienda del servidor para revivirte.</li>
+            <li><strong>Misiones con Castigo:</strong> 
+                <br>• <em>Diarias:</em> Si no la completas, al volver a entrar tendrás un efecto negativo hasta terminarla.
+                <br>• <em>Semanales:</em> ¡Si no la cumples a tiempo, <strong>perderás 1 vida</strong>!
+            </li>
         </ul>
     </div>
 
     <!-- PACTOS DE CONVIVENCIA -->
     <div class="card">
-        <h2>🕊️ Pactos de Convivencia (/pacto)</h2>
-        <p>Elige tu nivel de compromiso según tu estilo de juego:</p>
-        <ul>
-            <li><span class="badge">Nivel 0</span> <strong>Pacífico:</strong> Inmunidad total. Nadie te puede atacar, robar ni griffear.</li>
-            <li><span class="badge">Nivel 1</span> <strong>Casual:</strong> Bromas ligeras permitidas. Quien cause daños debe devolver los ítems/reparar.</li>
-            <li><span class="badge">Nivel 2</span> <strong>Competitivo:</strong> PvP moderado y pequeñas rivalidades.</li>
-            <li><span class="badge">Nivel 3</span> <strong>Anarquía:</strong> PvP total, griffeo y libre acción.</li>
-        </ul>
+        <h2>🕊️ Pactos de Convivencia (<code style="color:var(--accent);">/pacto</code>)</h2>
+        <p style="color: var(--text-muted); margin-bottom: 12px; font-size: 0.95rem;">Tú decides tu nivel de interacción y riesgo con los demás:</p>
+        
+        <details>
+            <summary>Ver Niveles de Pacto (0 al 3)</summary>
+            <div class="details-content">
+                <ul>
+                    <li><span class="pact-badge">Nivel 0 (Pacífico)</span> Inmunidad total. Nadie te puede atacar, robar ni griffear.</li>
+                    <li><span class="pact-badge">Nivel 1 (Casual)</span> Bromas ligeras permitidas. Si hay daños materiales, deben devolverse o repararse.</li>
+                    <li><span class="pact-badge">Nivel 2 (Moderado)</span> Griefing menor y pequeñas rivalidades permitidas.</li>
+                    <li><span class="pact-badge">Nivel 3 (Anarquía)</span> Libertad total. PvP libre, griffeos y saqueo permitido.</li>
+                </ul>
+            </div>
+        </details>
     </div>
 
     <!-- TIEMPO DE JUEGO -->
     <div class="card">
-        <h2>⏳ Tiempo de Juego Diario</h2>
-        <ul>
-            <li><strong>Horarios:</strong> 180 min (3 hrs) en días normales y 300 min (5 hrs) los fines de semana.</li>
-            <li><strong>Bolsa de Horas:</strong> El tiempo que no uses entre semana se guarda para el fin de semana.</li>
-            <li><strong>Comando <code>/descanso</code>:</strong> Cambia tu día largo a otro día de la semana si lo necesitas.</li>
-        </ul>
+        <h2>⏳ Tiempo de Juego Inteligente</h2>
+        <p style="color: var(--text-muted); margin-bottom: 12px; font-size: 0.95rem;">Sistema basado en tiempo real (CDMX) sin contar ticks:</p>
+        
+        <details>
+            <summary>Cómo funciona el horario y la bolsa de horas</summary>
+            <div class="details-content">
+                <ul>
+                    <li><strong>Límites diarios:</strong> 3 horas en días normales y 5 horas en fines de semana (viernes a domingo).</li>
+                    <li><strong>Bolsa de horas:</strong> El tiempo que no uses entre semana se acumula para el fin de semana (tope de 300 min).</li>
+                    <li><strong>Comando <code>/descanso</code>:</strong> Puedes cambiar uno de tus días largos a otro día de la semana si lo necesitas.</li>
+                </ul>
+            </div>
+        </details>
     </div>
 
-    <!-- OTRAS MECÁNICAS -->
+    <!-- MECÁNICAS GENERALES -->
     <div class="card">
-        <h2>✨ Características Generales</h2>
-        <ul>
-            <li><strong>Gremios y Banco:</strong> Crea tu clan, abre un cofre compartido y guarda tu dinero en el banco.</li>
-            <li><strong>Casino 3D:</strong> Tragamonedas, ruleta, blackjack y apuestas de eventos.</li>
-            <li><strong>Cacerías de Jefes:</strong> Enfrenta jefes especiales con armas y mecánicas únicas.</li>
-            <li><strong>Muñeco de Guardia:</strong> Mantiene tus cultivos y mecanismos cargados mientras estás desconectado.</li>
-            <li><strong>Tickets de Imagen:</strong> Coloca cualquier imagen de internet en cuadros usando <code>/imagen &lt;link&gt;</code>.</li>
-        </ul>
+        <h2>✨ Mecánicas y Utilidades</h2>
+        <details>
+            <summary>Explorar economía, gremios y casino</summary>
+            <div class="details-content">
+                <ul>
+                    <li><strong>Gremios:</strong> Crea tu clan con siglas en el TAB, cofre compartido y chat privado (<code style="color:var(--accent);">/gc</code>).</li>
+                    <li><strong>Casino 3D:</strong> Máquinas tragamonedas, ruleta, blackjack y video póker totalmente funcionales en el mundo.</li>
+                    <li><strong>Tickets de Imagen:</strong> Convierte cualquier imagen de internet en un cuadro dentro del juego usando <code style="color:var(--accent);">/imagen &lt;enlace&gt;</code>.</li>
+                    <li><strong>Muñeco de guardia:</strong> Un clon tuyo que mantiene tus chunks cargados mientras no estás conectado.</li>
+                </ul>
+            </div>
+        </details>
     </div>
 
     <!-- INVITACIONES Y COOPERACIÓN -->
     <div class="card">
-        <h2>👥 Invitaciones y Mantenimiento</h2>
-        <p><strong>¡Invita a tus amigos!</strong> Puedes traer a cualquier conocido que quiera jugar con nosotros.</p>
+        <h2>👥 Comunidad y Mantenimiento</h2>
+        <ul>
+            <li><strong>¡Invita a tus conocidos!</strong> El servidor está abierto para amigos y personas recomendadas que busquen una buena experiencia.</li>
+        </ul>
         <div class="info-box">
-            💳 <strong>Sostenibilidad del Servidor:</strong> Se solicitará una pequeña cooperación entre todos los jugadores para cubrir el costo del host. Al ser varios, la aportación individual será muy accesible.
+            💳 <strong>Sostenibilidad del Servidor:</strong> Para mantener el host activo 24/7 y sin lag, solicitaremos una pequeña cooperación equitativa entre los jugadores. Al ser un grupo, la aportación individual será mínima.
         </div>
     </div>
 
+    <!-- FOOTER -->
     <footer>
-        <p>Servidor impulsado por <strong>Núcleo Mod</strong> • ¡Nos vemos dentro del juego!</p>
+        <p>Desarrollado bajo <strong>Núcleo Mod</strong> • ¡Nos vemos pronto en el servidor!</p>
     </footer>
 
 </div>
