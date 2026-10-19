@@ -482,6 +482,119 @@
         }
 
         /* ==================== FOOTER ==================== */
+
+        /* ==================== PROGRESSION TIMELINE ==================== */
+        .progression-card {
+            border-color: rgba(192, 132, 252, 0.3);
+            background: linear-gradient(135deg, rgba(30, 20, 50, 0.85), rgba(20, 15, 35, 0.85));
+        }
+        .progression-card:hover {
+            border-color: rgba(192, 132, 252, 0.55);
+        }
+        .progression-card::before {
+            background: linear-gradient(90deg, transparent, var(--accent-3), transparent);
+        }
+        .progression-card h2 {
+            color: var(--accent-3);
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 36px;
+            margin-top: 18px;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 14px; top: 8px; bottom: 8px;
+            width: 3px;
+            background: linear-gradient(to bottom, var(--accent), var(--accent-2), var(--accent-3), var(--warning), var(--success));
+            border-radius: 3px;
+            opacity: 0.5;
+        }
+        .tl-item {
+            position: relative;
+            margin-bottom: 20px;
+        }
+        .tl-item:last-child { margin-bottom: 0; }
+        .tl-dot {
+            position: absolute;
+            left: -29px; top: 2px;
+            width: 22px; height: 22px;
+            border-radius: 50%;
+            border: 3px solid var(--bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.65rem;
+            font-weight: 900;
+            z-index: 1;
+            animation: pulseGlow 3s ease-in-out infinite;
+        }
+        .tl-dot.w1 { background: var(--danger);   box-shadow: 0 0 12px var(--danger-glow); }
+        .tl-dot.w2 { background: var(--warning);   box-shadow: 0 0 12px var(--warning-glow); animation-delay: 0.5s; }
+        .tl-dot.w3 { background: var(--accent);     box-shadow: 0 0 12px var(--accent-glow);  animation-delay: 1s; }
+        .tl-dot.w4 { background: var(--accent-3);   box-shadow: 0 0 12px rgba(192,132,252,0.4); animation-delay: 1.5s; }
+        .tl-dot.final { background: var(--success);  box-shadow: 0 0 12px var(--success-glow); animation-delay: 2s; }
+
+        .tl-week {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 4px;
+            display: inline-block;
+            padding: 2px 10px;
+            border-radius: 6px;
+        }
+        .tl-week.w1 { background: rgba(244,63,94,0.15);  color: var(--danger); }
+        .tl-week.w2 { background: rgba(251,191,36,0.15); color: var(--warning); }
+        .tl-week.w3 { background: rgba(56,189,248,0.15);  color: var(--accent); }
+        .tl-week.w4 { background: rgba(192,132,252,0.15); color: var(--accent-3); }
+        .tl-week.final { background: rgba(52,211,153,0.15); color: var(--success); }
+
+        .tl-title {
+            font-weight: 700;
+            color: var(--text);
+            font-size: 1rem;
+            margin-bottom: 4px;
+        }
+        .tl-desc {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            line-height: 1.55;
+        }
+        .tl-desc code {
+            font-size: 0.85em;
+        }
+
+        .edition-note {
+            margin-top: 18px;
+            background: linear-gradient(135deg, rgba(52,211,153,0.08), rgba(56,189,248,0.06));
+            border: 1px solid rgba(52,211,153,0.25);
+            border-radius: 12px;
+            padding: 14px 18px;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        .edition-note:hover {
+            border-color: rgba(52,211,153,0.45);
+            box-shadow: 0 0 20px rgba(52,211,153,0.08);
+        }
+        .edition-note .icon {
+            font-size: 1.3rem;
+            flex-shrink: 0;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @media (max-width: 600px) {
+            .timeline { padding-left: 30px; }
+            .tl-dot { left: -25px; width: 18px; height: 18px; font-size: 0.55rem; }
+        }
         footer {
             text-align: center;
             padding: 32px 20px 24px;
@@ -627,8 +740,52 @@
         </details>
     </div>
 
-    <!-- ===================== COMUNIDAD ===================== -->
+    <!-- ===================== PROGRESIÓN DEL MUNDO ===================== -->
+    <div class="card progression-card">
+        <h2><span class="icon">🗺️</span> Progresión del Mundo</h2>
+        <p style="color: var(--text-muted); margin-bottom: 4px; font-size: 0.95rem;">El servidor es <strong style="color:var(--accent-3);">job-friendly</strong>: la progresión se libera por etapas para que nadie se quede atrás por sus horarios.</p>
+
+        <div class="timeline">
+            <div class="tl-item">
+                <span class="tl-dot w1">1</span>
+                <span class="tl-week w1">Semana 1</span>
+                <div class="tl-title">🔒 Sin acceso al Nether</div>
+                <div class="tl-desc">El portal permanece desactivado. Toca explorar, construir y reunir recursos en el Overworld.</div>
+            </div>
+            <div class="tl-item">
+                <span class="tl-dot w2">2</span>
+                <span class="tl-week w2">Semana 2</span>
+                <div class="tl-title">⚠️ Nether limitado</div>
+                <div class="tl-desc">Se activa el Nether, pero restringido a <strong>1000 bloques del spawn</strong> y <strong>sin Ancient Debris</strong>. Toca organizarse en zona segura.</div>
+            </div>
+            <div class="tl-item">
+                <span class="tl-dot w3">3</span>
+                <span class="tl-week w3">Semana 3</span>
+                <div class="tl-title">⛏️ Ancient Debris desbloqueado</div>
+                <div class="tl-desc">Se habilita el Ancient Debris en el Nether. Ya podrás conseguir Netherite y preparar tu equipo.</div>
+            </div>
+            <div class="tl-item">
+                <span class="tl-dot w4">4</span>
+                <span class="tl-week w4">Semana 4</span>
+                <div class="tl-title">🐉 Apertura total + Evento del Dragón</div>
+                <div class="tl-desc">El Nether se abre sin restricciones. Habrá un <strong>evento coordinado</strong> para que la mayor cantidad de jugadores posible participe en la batalla contra el Dragón del End.</div>
+            </div>
+            <div class="tl-item">
+                <span class="tl-dot final">✓</span>
+                <span class="tl-week final">Mes y medio</span>
+                <div class="tl-title">🕊️ Fin de las restricciones de tiempo</div>
+                <div class="tl-desc">Aproximadamente un mes y medio después del inicio —y una vez derrotado el Dragón— se eliminan las restricciones de horario. El límite existía para evitar una progresión abusiva; a partir de aquí <strong>cada quien juega a su ritmo</strong>.</div>
+            </div>
+        </div>
+
+        <div class="edition-note">
+            <span class="icon">🔄</span>
+            <div><strong>¿Habrá otra edición?</strong> Si este modo y formato son un éxito, es muy probable que hagamos una nueva edición con ajustes y novedades. ¡Tu participación y feedback cuentan!</div>
+        </div>
+    </div>
+
     <div class="card">
+    <!-- ===================== COMUNIDAD ===================== -->
         <h2><span class="icon">👥</span> Comunidad y Mantenimiento</h2>
         <ul>
             <li><strong>¡Invita a tus conocidos!</strong> El servidor está abierto para amigos y personas recomendadas que busquen una buena experiencia.</li>
